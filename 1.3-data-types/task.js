@@ -1,13 +1,13 @@
 'use strict';
 function calculateTotalMortgage(percent, contribution, amount, date) {
     if(isNaN(percent)) {
-        console.log(`Параметр percent содержит неправильное значение ${percent}`);
+        return `Параметр percent содержит неправильное значение ${percent}`;
     }
     if(isNaN(contribution)) {
-        console.log(`Параметр contribution содержит неправильное значение ${contribution}`);
+        return `Параметр contribution содержит неправильное значение ${contribution}`;
     }
     if(isNaN(amount)) {
-        console.log(`Параметр amount содержит неправильное значение ${amount}`);
+        return `Параметр amount содержит неправильное значение ${amount}`;
     }
 
     let creditYear = new Date(date).getFullYear(),
@@ -28,7 +28,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
 function getGreeting(name) {
     if(name === 'undefined' || name === 'null' || name === undefined || name === null || name.length <= 0) {
-        name = "Аноним";
+        return (`Привет, мир! Меня зовут ${name || "Аноним"}`);
     }
     let greeting = `Привет, мир! Меня зовут ${name}`;
     console.log(greeting);
