@@ -37,26 +37,27 @@ showSolutionsMessage(7, 20, -3);
 showSolutionsMessage(2, 4, 2);
 
 function getAverageScore(data) {
-    data.average = getAverageMark(data);
-    return data;
+    if (data == {}) {
+        data.average = 0;
+    } else {
+        for (let key in data) {
+            data[key] = getAverageMark(data[key]);
+        }
+        data.average = getAverageMark(Object.values(data))
+    }
+    return data
 }
 
 function getAverageMark(marks) {
-    let counter = 0;
-    for (let key in marks) {
-        counter++;
-    }
-    let average = 0;
-    for (let key in marks) {
-        let sum = 0;
-        for (let i = 0; i < marks[key].length; i++) {
-            sum += marks[key][i] / marks[key].length;
-            average += (marks[key][i] / marks[key].length) / counter;
+    if (marks.length == 0) {
+        return 0;
+    } else {
+        let sumMarks = 0;
+        for (i = 0; i < marks.length; i++) {
+            sumMarks += marks [i];
         }
-        marks[key] = sum;
+        return sumMarks / marks.length
     }
-    marks.average = average;
-    return marks.average;
 }
 
 getAverageScore({
@@ -72,36 +73,22 @@ getAverageScore({
 });
 
 function getPersonData(secretData) {
-    return getDecodedValue(secretData);
+    let personSecretData = {
+        firstName: getDecodedValue(secretData.aaa),
+        lastName: getDecodedValue(secretData.bbb)
+    }
+    return personSecretData;
 }
 
-function getDecodedValue(secretData) {
-    let obj = new Object;
-    if(secretData === 0) {
+function getDecodedValue(secret) {
+    if (secret === 0) {
         return 'Родриго';
-    }
-    if(secretData === 1) {
+    } else {
         return 'Эмильо';
     }
-    for(let key in secretData) {
-        if(key == 'aaa') {
-            if(secretData[key] == 0) {
-                obj.firstName = 'Родриго';
-            } else if (secretData[key] == 1){
-                obj.firstName = 'Эмильо';
-            }
-        } else if (key == 'bbb') {
-            if(secretData[key] == 0) {
-                obj.lastName = 'Родриго';
-            } else if (secretData[key] == 1){
-                obj.lastName = 'Эмильо';
-            }
-        }
-    }
-    return obj;
 }
 
-getPersonData({aaa: 0, bbb: 0});
-getPersonData({aaa: 1, bbb: 0});
-getPersonData({aaa: 0, bbb: 1});
-getPersonData({aaa: 1, bbb: 1});
+console.log(getPersonData({aaa: 0, bbb: 0}));
+console.log(getPersonData({aaa: 1, bbb: 0}));
+console.log(getPersonData({aaa: 0, bbb: 1}));
+console.log(getPersonData({aaa: 1, bbb: 1}));
